@@ -1,0 +1,43 @@
+.wrapper {
+  background-color: #0f0f11;
+  font-family: "Rubik", sans-serif;
+  height: 105vh;
+  overflow: scroll;
+
+  .subWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 15rem;
+
+    .container {
+      background-color: #19191c;
+      height: 60%;
+      width: 50%;
+      border-radius: 10px;
+      box-shadow: 0.2em 0.2em 1em rgba(0, 0, 0, 0.4);
+      margin: 1rem;
+      padding: 1rem;
+      overflow: auto;
+
+      .subContainer {
+        text-align: left;
+        width: 80%;
+
+        .subLabel {
+          font-size: 20px;
+          color: #fff;
+        }
+      }
+
+      .hr {
+        width: 100%;
+        margin: 1rem 0 1.3rem 0;
+        color: #fff;
+      }
+    }
+  }
+}
