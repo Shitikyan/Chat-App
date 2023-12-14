@@ -1,0 +1,21 @@
+.wrapper {
+  background-color: #0f0f11;
+  font-family: "Rubik", sans-serif;
+  height: 105vh;
+  overflow: scroll;
+
+  .subWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 15rem;
+    
+    .img {
+      height: 70%;
+      max-width: 100%;
+    }
+  }
+}

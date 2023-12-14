@@ -1,0 +1,18 @@
+.button {
+  width: 200px;
+  font-size: 16px;
+  padding: 0.6rem 1rem;
+  background-color: #464649;
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media (max-width: 550px) {
+    width: 150px;
+    font-size: 14px;
+  }
+}
