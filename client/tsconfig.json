@@ -29,7 +29,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es5",
     "module": "esnext",
     "lib": ["es2017", "dom"],
     "skipDefaultLibCheck": true,

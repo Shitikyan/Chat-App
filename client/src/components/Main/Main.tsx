@@ -1,47 +1,61 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "../Home/Home";
 import ChatRoom from "../ChatRoom/ChatRoom";
 import Login from "../Login/Login";
 import Registration from "../Registration/Registration";
 import Error from "../ErrorPage/ErrorPage";
-
-// React Toastify
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// Redux Hooks
 import { useSelector, useDispatch } from "react-redux";
-
-// Actions
-// import { setIsAuthenticated } from "../actions/auth-actions";
+import { setIsAuthenticated } from "src/actions/auth-actions";
+import axios from "axios";
 
 // toast.configure();
 
 export const Main = () => {
-  // const navigate = useNavigate();
+  const isAuthenticated: boolean = useSelector(
+    (state: any) => state.isAuthenticated
+  );
 
-  const isAuthenticated = true;
+  const dispatch = useDispatch();
+
+  const isAuth = async () => {
+    try {
+      const response: any = await axios.get(
+        "http://localhost:3000/auth/is-verified",
+        {
+          headers: { token: localStorage.token },
+        }
+      );
+
+      const parseResponse = await response.json();
+
+      parseResponse === true
+        ? setIsAuthenticated(dispatch, true)
+        : setIsAuthenticated(dispatch, false);
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
+
+  useEffect(() => {
+    isAuth();
+  }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={isAuthenticated ? <Home /> : <Login />} />
-        <Route
-          path="/login"
-          element={isAuthenticated ? <Login /> : <Home />}
-        />
-        <Route
-          path="/register"
-          element={!isAuthenticated ? <Registration /> : <Login />}
-        />
-        <Route
-          path="/chatroom/:roomId"
-          element={isAuthenticated ? <ChatRoom /> : <Login />}
-        />
-        <Route path="*" element={<Error />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route index element={!isAuthenticated ? <Home /> : <Login />} />
+      <Route path="/login" element={!isAuthenticated ? <Login /> : <Home />} />
+      <Route
+        path="/register"
+        element={!isAuthenticated ? <Registration /> : <Login />}
+      />
+      <Route
+        path="/chatroom/:roomId"
+        element={!isAuthenticated ? <ChatRoom /> : <Login />}
+      />
+      <Route path="*" element={<Error />} />
+    </Routes>
   );
 };

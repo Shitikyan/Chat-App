@@ -12,10 +12,29 @@
     height: 100%;
     width: 100%;
     padding-bottom: 15rem;
-    
+
     .img {
       height: 70%;
       max-width: 100%;
+    }
+
+    .button {
+      width: 200px;
+      font-size: 16px;
+      padding: 0.6rem 1rem;
+      background-color: #772de8;
+      border: none;
+      color: #fff;
+      border-radius: 4px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      @media (max-width: 550px) {
+        width: 150px;
+        font-size: 14px;
+      }
     }
   }
 }
