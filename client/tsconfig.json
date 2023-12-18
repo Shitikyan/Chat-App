@@ -3,10 +3,10 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "types": [],
+    "types": ["node", "react"],
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
@@ -29,7 +29,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es5",
+    "target": "es2015",
     "module": "esnext",
     "lib": ["es2017", "dom"],
     "skipDefaultLibCheck": true,
@@ -39,9 +39,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js",
-    "**/*.jsx",
-    "next-env.d.ts",
-    ".next/types/**/*.ts"
+    "**/*.jsx"
   ],
   "exclude": ["node_modules"]
 }
