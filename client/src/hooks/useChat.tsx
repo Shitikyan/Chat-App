@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const JOIN_ROOM = "joinRoom";
 const ROOM_INFO = "roomInfo";
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
-const SOCKET_SERVER_URL = "http://localhost:3000";
+const SOCKET_SERVER_URL = "http://localhost:4001";
 
 const useChat = (roomId: string) => {
   const [messages, setMessages] = useState([]);

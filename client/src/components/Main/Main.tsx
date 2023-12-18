@@ -23,7 +23,7 @@ export const Main = () => {
   const isAuth = async () => {
     try {
       const response: any = await axios.get(
-        "http://localhost:3000/auth/is-verified",
+        "http://localhost:4001/auth/is-verified",
         {
           headers: { token: localStorage.token },
         }

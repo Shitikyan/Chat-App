@@ -97,7 +97,7 @@ export default function Registration() {
               name="email"
               placeholder="Email Address"
               value={email}
-              onChange={(e) => setEmail(dispatch, e.terget.value)}
+              onChange={(e) => setEmail(dispatch, e.target.value)}
             />
             <div className={styles.subContainer}>
               <label htmlFor="username" className={styles.subLabel}>

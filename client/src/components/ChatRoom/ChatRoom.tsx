@@ -5,7 +5,8 @@ import Navbar from "../Navbar/Navbar";
 import RoomDetails from "../RoomDetails/RoomDetails";
 import styles from "./chatRoom.module.scss";
 
-export default function ChatRoom() {
+export default function ChatRoom(props: any) {
+  
   return (
     <div className={styles.container}>
       <div className={styles.grid}>

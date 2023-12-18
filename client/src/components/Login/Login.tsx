@@ -21,7 +21,7 @@ export default function Login() {
       const body = { username, password };
 
       const response: any = await axios.post(
-        "http://localhost:3000/auth/login",
+        "http://localhost:4001/auth/login",
         {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
@@ -72,7 +72,7 @@ export default function Login() {
             </div>
             <input
               className={styles.input}
-              type="text"
+              type="password"
               name="password"
               placeholder="Enter Password"
               value={password}
