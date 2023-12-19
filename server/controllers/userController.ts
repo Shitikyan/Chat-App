@@ -1,7 +1,24 @@
-const User = require('../models/userModel');
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
+import { User } from '../models/userModel';
+import Joi, { ValidationError } from 'joi';
 
-module.exports.login = async (req, res, next) => {
+const schema = Joi.object({
+  username: Joi.string().alphanum().min(3).max(30).required(),
+
+  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+
+  repeat_password: Joi.ref('password'),
+
+  email: Joi.string().email({
+    minDomainSegments: 2,
+    tlds: { allow: ['com', 'net'] },
+  }),
+})
+  .with('username', 'password')
+  .with('username', 'email')
+  .with('password', 'repeat_password');
+
+export const login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
@@ -10,7 +27,7 @@ module.exports.login = async (req, res, next) => {
         msg: 'Incorrect Username or Password',
         status: false,
       });
-      
+
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid)
       return res.json({
@@ -24,11 +41,17 @@ module.exports.login = async (req, res, next) => {
   }
 };
 
-module.exports.register = async (req, res, next) => {
-
+export const register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
-    const usernameCheck = await User.findOne({ username });
+
+    const { error, value } = await schema.validate({
+      username: username,
+      password: password,
+      email: email,
+    });
+    const usernameCheck = await User.findOne({ username: value.username });
+
     if (usernameCheck)
       return res.json({
         msg: 'Username already used',
@@ -50,7 +73,7 @@ module.exports.register = async (req, res, next) => {
   }
 };
 
-module.exports.getAllUsers = async (req, res, next) => {
+export const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find({
       _id: { $ne: req.params.id },
@@ -61,7 +84,7 @@ module.exports.getAllUsers = async (req, res, next) => {
   }
 };
 
-module.exports.setAvatar = async (req, res, next) => {
+export const setAvatar = async (req, res, next) => {
   try {
     const userId = req.params.id;
     const avatarImage = req.body.image;
@@ -82,10 +105,10 @@ module.exports.setAvatar = async (req, res, next) => {
   }
 };
 
-module.exports.logOut = (req, res, next) => {
+export const logOut = (req, res, next) => {
   try {
     if (!req.params.id) return res.json({ msg: 'User id is required ' });
-    onlineUsers.delete(req.params.id);
+    global.onlineUsers.delete(req.params.id);
     return res.status(200).send();
   } catch (ex) {
     next(ex);

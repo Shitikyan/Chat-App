@@ -1,22 +1,34 @@
-import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
-import ChatInput from "./ChatInput";
-import Logout from "./Logout";
-import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
-import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import { sendMessageRoute, recieveMessageRoute } from '../utils/APIRoutes';
+import ChatInput from './ChatInput';
+import Logout from './Logout';
+import styled from 'styled-components';
 
-export default function ChatContainer({ currentChat, socket }: {currentChat: any, socket: any}) {
+export  interface CurrentChatType {
+  _id: string;
+  username: string;
+  email: string;
+  avatarImage: string
+}
+
+export default function ChatContainer({
+  currentChat,
+  socket,
+}: {
+  currentChat: CurrentChatType;
+  socket: any;
+}) {
   const [messages, setMessages] = useState([]);
-  const scrollRef = useRef<any>();
+  const scrollRef = useRef<HTMLDivElement>();
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
-  useEffect( () => {
-
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await JSON.parse(
-          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY),
         );
         const response = await axios.post(recieveMessageRoute, {
           from: data._id,
@@ -27,7 +39,7 @@ export default function ChatContainer({ currentChat, socket }: {currentChat: any
         console.error('Error fetching data:', error);
       }
     };
-  
+
     fetchData();
   }, [currentChat]);
 
@@ -35,18 +47,19 @@ export default function ChatContainer({ currentChat, socket }: {currentChat: any
     const getCurrentChat = async () => {
       if (currentChat) {
         await JSON.parse(
-          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+          localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY),
         )._id;
       }
     };
+
     getCurrentChat();
   }, [currentChat]);
 
   const handleSendMsg = async (msg: string) => {
     const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY),
     );
-    socket.current.emit("send-msg", {
+    socket.current.emit('send-msg', {
       to: currentChat._id,
       from: data._id,
       msg,
@@ -64,18 +77,18 @@ export default function ChatContainer({ currentChat, socket }: {currentChat: any
 
   useEffect(() => {
     if (socket.current) {
-      socket.current.on("msg-recieve", (msg: string) => {
+      socket.current.on('msg-recieve', (msg: string) => {
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
   }, []);
 
   useEffect(() => {
-    arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+    arrivalMessage && setMessages(prev => [...prev, arrivalMessage]);
   }, [arrivalMessage]);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   return (
@@ -95,12 +108,12 @@ export default function ChatContainer({ currentChat, socket }: {currentChat: any
         <Logout />
       </div>
       <div className="chat-messages">
-        {messages.map((message) => {
+        {messages.map(message => {
           return (
             <div ref={scrollRef} key={uuidv4()}>
               <div
                 className={`message ${
-                  message.fromSelf ? "sended" : "recieved"
+                  message.fromSelf ? 'sended' : 'recieved'
                 }`}
               >
                 <div className="content ">

@@ -1,27 +1,40 @@
-import React, { useState } from "react";
-import { BsEmojiSmileFill } from "react-icons/bs";
-import { IoMdSend } from "react-icons/io";
-import styled from "styled-components";
-import Picker from "emoji-picker-react";
+import React, { useState } from 'react';
+import { BsEmojiSmileFill } from 'react-icons/bs';
+import { IoMdSend } from 'react-icons/io';
+import styled from 'styled-components';
+import Picker from 'emoji-picker-react';
 
-export default function ChatInput({ handleSendMsg }: {handleSendMsg: (msg: string) => void}) {
-  const [msg, setMsg] = useState("");
+interface EmojiObjectType {
+  unified: string;
+  emoji: string;
+  originalUnified: string;
+  names: string[];
+  activeSkinTone: string;
+}
+
+export default function ChatInput({
+  handleSendMsg,
+}: {
+  handleSendMsg: (msg: string) => void;
+}) {
+  const [msg, setMsg] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
   const handleEmojiPickerhideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
 
-  const handleEmojiClick = (event: any, emojiObject:  any) => {
+  const handleEmojiClick = (event: React.FormEvent, emojiObject: EmojiObjectType) => {
     let message = msg;
     message += emojiObject.emoji;
     setMsg(message);
   };
 
-  const sendChat = (event: any) => {
+  const sendChat = (event: React.FormEvent) => {
     event.preventDefault();
     if (msg.length > 0) {
       handleSendMsg(msg);
-      setMsg("");
+      setMsg('');
     }
   };
 
@@ -33,11 +46,11 @@ export default function ChatInput({ handleSendMsg }: {handleSendMsg: (msg: strin
           {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />}
         </div>
       </div>
-      <form className="input-container" onSubmit={(event) => sendChat(event)}>
+      <form className="input-container" onSubmit={event => sendChat(event)}>
         <input
           type="text"
           placeholder="type your message here"
-          onChange={(e) => setMsg(e.target.value)}
+          onChange={e => setMsg(e.target.value)}
           value={msg}
         />
         <button type="submit">
@@ -53,7 +66,7 @@ const Container = styled.div`
   align-items: center;
   grid-template-columns: 5% 95%;
   background-color: #6d8274;
-  border-radius: 0 0 40px  0;
+  border-radius: 0 0 40px 0;
   padding: 0 2rem;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     padding: 0 1rem;

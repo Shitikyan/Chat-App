@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import { Buffer } from 'buffer';
-import loader from '../assets/loader.gif';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 import { setAvatarRoute } from '../utils/APIRoutes';
+import { Buffer } from 'buffer';
+import styled from 'styled-components';
+import loader from '../assets/loader.gif';
+import 'react-toastify/dist/ReactToastify.css';
+
+export  interface ToastOptions {
+  position:
+    | 'top-right'
+    | 'top-center'
+    | 'top-left'
+    | 'bottom-right'
+    | 'bottom-center'
+    | 'bottom-left';
+  autoClose: number;
+  pauseOnHover: boolean;
+  draggable: boolean;
+  theme: 'light' | 'dark';
+}
 
 export default function SetAvatar() {
   const api = `https://api.multiavatar.com/4645646`;
   const navigate = useNavigate();
+
   const [avatars, setAvatars] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAvatar, setSelectedAvatar] = useState(undefined);
-  const toastOptions: any = {
+
+  const toastOptions: ToastOptions = {
     position: 'bottom-right',
     autoClose: 8000,
     pauseOnHover: true,
@@ -82,7 +98,6 @@ export default function SetAvatar() {
 
     fetchData();
   }, []);
-
 
   return (
     <>

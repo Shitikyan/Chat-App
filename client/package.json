@@ -24,7 +24,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ext ts --ext tsx --ext js",
+    "lint:fix": "yarn run lint --fix",
+    "prettier": "npx prettier index.js --check",
+    "format": "prettier --write \"**/*.{js,,ts,json,md}\"",
+    "postinstall": "husky install"
   },
   "eslintConfig": {
     "extends": [
