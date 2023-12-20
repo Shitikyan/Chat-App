@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./index.ts",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "*": ["node_modules"],
+      "rotes/*": ["./routes/*"],
+      "models/*": ["./models/*"],
+      "controllers/*": ["./controllers/*"]
+    }
+  },
+  "files": [
+    "./routes/auth.ts",
+    "./routes/messages.ts",
+    "./models/messageModel.ts",
+    "./models/userModel.ts",
+    "./controllers/userController.ts",
+    "./controllers/messageController.ts",
+    "index.ts"
+  ],
+  "exclude": ["node_modules"]
+}
