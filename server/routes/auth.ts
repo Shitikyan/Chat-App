@@ -14,4 +14,3 @@ authRoutes.post('/register', register);
 authRoutes.get('/allusers/:id', getAllUsers);
 authRoutes.post('/setavatar/:id', setAvatar);
 authRoutes.get('/logout/:id', logOut);
-

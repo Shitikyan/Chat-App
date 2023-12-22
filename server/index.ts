@@ -1,8 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose, { ConnectOptions } from 'mongoose';
-import socket from 'socket.io';
-import { Server } from "socket.io";
+import { Server } from 'socket.io';
 import dotenv from 'dotenv';
 import { authRoutes } from './routes/auth';
 import { messageRoutes } from './routes/messages';
@@ -16,7 +15,7 @@ app.use(express.json());
 const options: ConnectOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}as any;
+} as any;
 
 mongoose
   .connect(process.env.MONGO_URL, options)
