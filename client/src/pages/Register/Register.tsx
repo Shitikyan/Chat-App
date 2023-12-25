@@ -76,7 +76,7 @@ export default function Register() {
         toast.error(response.errorMessage, toastOptions);
       }
 
-      if (response.success === true) {
+      if (response.data.success === true) {
         setValue(response.data.user);
 
         navigate('/');
