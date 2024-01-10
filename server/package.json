@@ -1,0 +1,35 @@
+{
+  "name": "chat-app-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.ts",
+    "lint": "eslint . --ext ts --ext js",
+    "lint:fix": "yarn run lint --fix",
+    "prettier": "npx prettier index.js --check",
+    "format": "prettier --write \"**/*.{js,,ts,json,md}\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "husky install"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "joi": "^17.11.0",
+    "mongoose": "^6.2.1",
+    "nodemon": "^2.0.15",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-plugin-eslint-plugin": "^5.2.1",
+    "husky": "^8.0.3",
+    "prettier": "3.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
